@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 export default function HomeScreen() {
   const handleStartSleepRegulation = () => {
@@ -8,6 +10,7 @@ export default function HomeScreen() {
     // Isso pode incluir a navegação para a tela de regulação do sono
   };
 
+  const Stack = createStackNavigator();
   const handleSetLocationManually = () => {
     Alert.prompt(
       'Definir Localização Manualmente',

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { createStackNavigator, useNavigation } from '@react-navigation/native'; // Importe useNavigation
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -11,11 +12,10 @@ if (Platform.OS === 'android') {
   Biometrics = require('react-native-touch-id');
 }
 
-export default function TabTwoScreen() {
+export default function TabOneScreen() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [biometryType, setBiometryType] = useState<string>('');
-
   useEffect(() => {
     checkBiometryType();
   }, []);
@@ -29,9 +29,18 @@ export default function TabTwoScreen() {
     }
   };
 
+  const navigation = useNavigation(); // Use o useNavigation aqui
+
+  const navigateToCadastro = () => {
+    navigation.navigate('TabTwoScreen');
+  };
+
   const handleLogin = () => {
-    // Implemente a lógica de autenticação aqui
-    // Você pode usar o valor de 'username' e 'password' para autenticar o usuário
+    navigation.navigate('Home');
+  };
+
+  const handleNavigateToSignup = () => {
+      navigation.navigate('Cadastro'); // 'Cadastro' é o nome da tela de cadastro
   };
 
   const handleBiometricLogin = async () => {
@@ -52,7 +61,7 @@ export default function TabTwoScreen() {
   const handleFacebookLogin = async () => {
     try {
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-      
+
       if (result.isCancelled) {
         console.log('Login do Facebook cancelado');
       } else {
@@ -125,7 +134,7 @@ export default function TabTwoScreen() {
       </TouchableOpacity>
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Não tem uma conta?</Text>
-        <TouchableOpacity>
+          <TouchableOpacity onPress={navigateToCadastro}>
           <Text style={styles.signUpLink}>Cadastre-se agora</Text>
         </TouchableOpacity>
       </View>

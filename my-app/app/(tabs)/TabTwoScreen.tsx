@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Importe useNavigation
 
 export default function TabTwoScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState(''); // Adicionamos um campo para o email
+  const [email, setEmail] = useState('');
+
+  const navigation = useNavigation(); // Use o useNavigation aqui
 
   const handleSignup = () => {
     // Implemente a lógica de cadastro aqui
     // Você pode enviar os dados de cadastro (nome de usuário, senha, email) para um servidor ou armazená-los localmente
+    navigation.navigate('Home'); // 'Home' é o nome da tela de destino
+  };
+
+  // Função para navegar para a tela de login
+  const navigateToLogin = () => {
+    navigation.navigate('TabOneScreen'); // 'TabOneScreen' é o nome da tela de login
   };
 
   return (
@@ -22,7 +31,7 @@ export default function TabTwoScreen() {
       />
       <TextInput
         style={styles.input}
-        placeholder="Email" // Adicionamos um campo para o email
+        placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
       />
@@ -38,7 +47,7 @@ export default function TabTwoScreen() {
       </TouchableOpacity>
       <View style={styles.signinContainer}>
         <Text style={styles.signinText}>Já tem uma conta?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateToLogin}>
           <Text style={styles.signinLink}>Faça login agora</Text>
         </TouchableOpacity>
       </View>

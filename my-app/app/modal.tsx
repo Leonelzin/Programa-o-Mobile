@@ -6,7 +6,7 @@ export default function AboutScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Sobre o Aplicativo</Text>
-      <Text style={styles.description}>
+      <Text style={styles.text}>
         Este aplicativo foi projetado para ajudá-lo a controlar e melhorar a qualidade do seu sono.
         Ele oferece recursos para monitorar seu sono, criar rotinas de sono saudáveis e muito mais.
       </Text>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  description: {
+  text: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',

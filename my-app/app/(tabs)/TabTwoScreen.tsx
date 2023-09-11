@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function TabTwoScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const navigation = useNavigation(); // Use o useNavigation aqui
+  const navigation = useNavigation();
 
   const handleSignup = () => {
     // Implemente a lógica de cadastro aqui
@@ -21,6 +21,12 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Seu logotipo aqui */}
+      <Image
+        source={require('./meulogo.png')} // Substitua pelo caminho da imagem do seu logotipo
+        style={styles.logo}
+      />
+
       <Text style={styles.title}>Cadastro</Text>
       <TextInput
         style={styles.input}
@@ -60,6 +66,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+  },
+  logo: {
+    width: 100, // Ajuste a largura do logotipo conforme necessário
+    height: 100, // Ajuste a altura do logotipo conforme necessário
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,

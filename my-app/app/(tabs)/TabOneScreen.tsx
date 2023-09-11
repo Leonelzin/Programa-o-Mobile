@@ -1,92 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
-import { createStackNavigator, useNavigation } from '@react-navigation/native'; // Importe useNavigation
-import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+  Image,
+} from 'react-native';
+import { createStackNavigator, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import HomeScreen from './Home'; // Importe a tela "HomeScreen"
-
-let Biometrics: any = null;
-
-if (Platform.OS === 'android') {
-  Biometrics = require('react-native-fingerprint-scanner');
-} else if (Platform.OS === 'ios') {
-  Biometrics = require('react-native-touch-id');
-}
+import HomeScreen from './Home';
+import { RNCamera } from 'react-native-camera';
 
 export default function TabOneScreen() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [biometryType, setBiometryType] = useState<string>('');
-  useEffect(() => {
-    checkBiometryType();
-  }, []);
+  const [isCameraActive, setIsCameraActive] = useState(false);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const cameraRef = useRef<RNCamera | null>(null);
 
-  const checkBiometryType = async () => {
-    try {
-      const biometryType = await Biometrics.isSupported();
-      setBiometryType(biometryType);
-    } catch (error) {
-      console.error('Erro ao verificar biometria:', error);
-    }
-  };
-
-  const navigation = useNavigation(); // Use o useNavigation aqui
+  const navigation = useNavigation();
 
   const navigateToCadastro = () => {
     navigation.navigate('TabTwoScreen');
   };
 
   const handleLogin = () => {
-    navigation.navigate('Home'); // Navega para a tela de "HomeScreen"
+    navigation.navigate('Home');
   };
 
-  const handleNavigateToSignup = () => {
-    navigation.navigate('Cadastro'); // Navega para a tela de Cadastro
+  const openCamera = () => {
+    setIsCameraActive(true);
   };
 
-  const handleBiometricLogin = async () => {
-    try {
-      const result = await Biometrics.authenticate();
+  const closeCamera = () => {
+    setIsCameraActive(false);
+  };
 
-      if (result) {
-        console.log('Autenticação biométrica bem-sucedida');
-        // Implemente a lógica para autenticar o usuário aqui.
-      } else {
-        console.log('Autenticação biométrica falhou ou foi cancelada');
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      try {
+        const options = { quality: 0.5, base64: true };
+        const data = await cameraRef.current.takePictureAsync(options);
+        setCapturedImage(data.uri);
+        closeCamera();
+        // Implemente a lógica para autenticar o usuário com a foto capturada aqui.
+      } catch (error) {
+        console.error('Erro ao tirar foto:', error);
       }
-    } catch (error) {
-      console.error('Erro na autenticação biométrica:', error);
-    }
-  };
-
-  const handleFacebookLogin = async () => {
-    try {
-      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
-      if (result.isCancelled) {
-        console.log('Login do Facebook cancelado');
-      } else {
-        const data = await AccessToken.getCurrentAccessToken();
-        if (data) {
-          const accessToken = data.accessToken.toString();
-          console.log('Token de acesso do Facebook:', accessToken);
-        }
-      }
-    } catch (error) {
-      console.error('Erro no login do Facebook:', error);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      console.log('Login com o Google');
-    } catch (error) {
-      console.error('Erro no login com o Google:', error);
     }
   };
 
   return (
     <View style={styles.container}>
+      {/* Seu logotipo aqui */}
+      <Image
+        source={require('./meulogo.png')} // Substitua pelo caminho da imagem do seu logotipo
+        style={styles.logo}
+      />
+
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
@@ -104,41 +77,43 @@ export default function TabOneScreen() {
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleFacebookLogin} style={styles.socialLoginContainer}>
-        <View style={styles.socialButton}>
-          <Icon name="facebook" size={24} color="#1877f2" style={styles.socialIcon} />
-          <Text style={styles.socialLoginText}>Login com Facebook</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleGoogleLogin} style={styles.socialLoginContainer}>
-        <View style={styles.socialButton}>
-          <Icon name="google" size={24} color="#FF0000" style={styles.socialIcon} />
-          <Text style={styles.socialLoginText}>Login com Google</Text>
-        </View>
-      </TouchableOpacity>
-      {biometryType === 'FaceID' && (
-        <TouchableOpacity onPress={handleBiometricLogin} style={styles.socialLoginContainer}>
-          <View style={styles.socialButton}>
-            <Icon name="face" size={24} color="#007bff" style={styles.socialIcon} />
-            <Text style={styles.socialLoginText}>Login com Face ID</Text>
-          </View>
-        </TouchableOpacity>
-      )}
-      <TouchableOpacity onPress={handleBiometricLogin} style={styles.socialLoginContainer}>
+      <TouchableOpacity onPress={openCamera} style={styles.socialLoginContainer}>
         <View style={styles.socialButton}>
           <Icon name="camera" size={24} color="#007bff" style={styles.socialIcon} />
-          <Text style={styles.socialLoginText}>Login com a Face</Text>
+          <Text style={styles.socialLoginText}>
+            {isCameraActive ? 'Tire uma foto para autenticar' : 'Login com a Face'}
+          </Text>
         </View>
       </TouchableOpacity>
+      {capturedImage && (
+        <View>
+          <Image source={{ uri: capturedImage }} style={styles.capturedImage} />
+        </View>
+      )}
       <TouchableOpacity>
         <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
       </TouchableOpacity>
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Não tem uma conta?</Text>
-          <TouchableOpacity onPress={navigateToCadastro}>
+        <TouchableOpacity onPress={navigateToCadastro}>
           <Text style={styles.signUpLink}>Cadastre-se agora</Text>
         </TouchableOpacity>
       </View>
+      {isCameraActive && (
+        <RNCamera
+          ref={cameraRef}
+          style={styles.camera}
+          type={RNCamera.Constants.Type.front} // Altere para a câmera frontal ou traseira conforme necessário
+          autoFocus={RNCamera.Constants.AutoFocus.on}
+          flashMode={RNCamera.Constants.FlashMode.off}
+          captureAudio={false}
+        />
+      )}
+      {isCameraActive && (
+        <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
+          <Text style={styles.captureButtonText}>Capturar</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -149,6 +124,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+  },
+  logo: {
+    width: 100, // Ajuste a largura do logotipo conforme necessário
+    height: 100, // Ajuste a altura do logotipo conforme necessário
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -209,6 +189,27 @@ const styles = StyleSheet.create({
   signUpLink: {
     color: '#007bff',
     marginLeft: 5,
+    fontWeight: 'bold',
+  },
+  capturedImage: {
+    width: 200,
+    height: 200,
+    marginTop: 10,
+  },
+  camera: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  captureButton: {
+    position: 'absolute',
+    bottom: 20,
+    backgroundColor: '#007bff',
+    borderRadius: 50,
+    padding: 15,
+  },
+  captureButtonText: {
+    color: '#fff',
     fontWeight: 'bold',
   },
 });

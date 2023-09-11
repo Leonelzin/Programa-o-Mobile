@@ -1,16 +1,19 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Image, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { createStackNavigator, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 export default function Home() {
-  const navigation = useNavigation(); // Use o hook useNavigation para acessar a navegação
+  const [sleepTime, setSleepTime] = useState('');
+  const [sleepDuration, setSleepDuration] = useState('');
+  const [sleepNote, setSleepNote] = useState('');
 
   const handleStartSleepRegulation = () => {
-    // Navegue para a tela de formulário
-    navigation.navigate('Formulario');
+    // Implemente a lógica para iniciar a regulagem do sono aqui
+    // Isso pode incluir a navegação para a tela de regulação do sono
   };
 
+  const Stack = createStackNavigator();
   const handleSetLocationManually = () => {
     Alert.prompt(
       'Definir Localização Manualmente',
@@ -35,19 +38,34 @@ export default function Home() {
         style={styles.logo}
       />
 
-      <Text style={styles.title}>Bem-vindo ao Sleep Better</Text>
-      <Text style={styles.description}>
-        O Sleep Better é seu parceiro para uma noite de sono mais saudável e revigorante.
-        Monitore seu sono, crie rotinas saudáveis e experimente a diferença em sua vida.
-      </Text>
+      <Text style={styles.title}>Preencha as Informações</Text>
+
+      {/* Campo para inserir a hora de dormir */}
+      <TextInput
+        style={styles.input}
+        placeholder="Que horas você dormiu?"
+        value={sleepTime}
+        onChangeText={(text) => setSleepTime(text)}
+      />
+
+      {/* Campo para inserir a duração do sono */}
+      <TextInput
+        style={styles.input}
+        placeholder="Quanto tempo você dormiu?"
+        value={sleepDuration}
+        onChangeText={(text) => setSleepDuration(text)}
+      />
+
+      {/* Campo para inserir uma nota sobre o sono (opcional) */}
+      <TextInput
+        style={styles.input}
+        placeholder="Alguma observação?"
+        value={sleepNote}
+        onChangeText={(text) => setSleepNote(text)}
+      />
+
       <TouchableOpacity style={styles.getStartedButton} onPress={handleStartSleepRegulation}>
-        <Text style={styles.getStartedButtonText}>Comece a Regular o Sono</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.manualLocationButton} onPress={handleSetLocationManually}>
-        <View style={styles.iconContainer}>
-          <Icon name="map-pin" size={20} color="#fff" />
-          <Text style={styles.manualLocationButtonText}>Definir Localização Manualmente</Text>
-        </View>
+        <Text style={styles.getStartedButtonText}>Enviar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,6 +94,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
   },
   getStartedButton: {
     backgroundColor: '#007bff',

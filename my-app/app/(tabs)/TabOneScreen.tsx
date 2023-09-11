@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'r
 import { createStackNavigator, useNavigation } from '@react-navigation/native'; // Importe useNavigation
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import HomeScreen from './Home'; // Importe a tela "HomeScreen"
 
 let Biometrics: any = null;
 
@@ -36,11 +37,11 @@ export default function TabOneScreen() {
   };
 
   const handleLogin = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Home'); // Navega para a tela de "HomeScreen"
   };
 
   const handleNavigateToSignup = () => {
-      navigation.navigate('Cadastro'); // 'Cadastro' é o nome da tela de cadastro
+    navigation.navigate('Cadastro'); // Navega para a tela de Cadastro
   };
 
   const handleBiometricLogin = async () => {

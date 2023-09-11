@@ -44,9 +44,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Cadastro"
+              name="TabOneScreen"
+              options={{
+                title: 'TabOneScreen',
+                tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+              }}
+            />
+      <Tabs.Screen
+        name="TabTwoScreen"
         options={{
-          title: 'Cadastro',
+          title: 'TabTwoScreen',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
@@ -59,5 +66,5 @@ export default function TabLayout() {
       />
     </Tabs>
   );
-  
+
 }

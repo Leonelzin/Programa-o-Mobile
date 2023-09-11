@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Importe useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 export default function TabTwoScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-
   const navigation = useNavigation(); // Use o useNavigation aqui
 
   const handleSignup = () => {
     // Implemente a lógica de cadastro aqui
     // Você pode enviar os dados de cadastro (nome de usuário, senha, email) para um servidor ou armazená-los localmente
-    navigation.navigate('Home'); // 'Home' é o nome da tela de destino
+    navigation.navigate('Home'); // Navega para a tela Home após o cadastro bem-sucedido
   };
 
   // Função para navegar para a tela de login

@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-export default function HomeScreen() {
+export default function Home() {
   const handleStartSleepRegulation = () => {
     // Implemente a lógica para iniciar a regulagem do sono aqui
     // Isso pode incluir a navegação para a tela de regulação do sono

@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { createStackNavigator, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Home() {
-  const navigation = useNavigation(); // Use o hook useNavigation para acessar a navegação
+const Home: React.FC = () => {
+  const navigation = useNavigation();
 
   // Função para lidar com o início da regulagem do sono
   const handleStartSleepRegulation = () => {
-    // Navegue para a tela de formulário
     navigation.navigate('Formulario');
   };
 
@@ -29,11 +28,16 @@ export default function Home() {
     );
   };
 
+  // Função para lidar com o logout
+  const handleLogout = () => {
+    // Redirecionar para a tela de login da mesma forma que a tela de cadastro
+    navigation.navigate('TabOneScreen'); // 'TabOneScreen' é o nome da tela de login
+  };
+
   return (
     <View style={styles.container}>
-      {/* Sua logo aqui */}
       <Image
-        source={require('./imagens/logonenem.png')} // Substitua pelo caminho da imagem da sua logo
+        source={require('./imagens/logonenem.png')}
         style={styles.logo}
       />
 
@@ -48,15 +52,18 @@ export default function Home() {
       <TouchableOpacity style={styles.manualLocationButton} onPress={handleSetLocationManually}>
         <View style={styles.iconContainer}>
           <Icon name="map-pin" size={20} color="#fff" />
-          <Text style={styles.manualLocationButtonText}>Definir Localização Manualmente</Text>
+          <Text style={styles.manualLocationButtonText}>Definir Localização</Text>
         </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // Estilos para o container principal
   container: {
     flex: 1,
     alignItems: 'center',
@@ -64,39 +71,33 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
-  // Estilos para a logo
   logo: {
-    width: 200, // Ajuste a largura da logo conforme necessário
-    height: 200, // Ajuste a altura da logo conforme necessário
+    width: 200,
+    height: 200,
     marginBottom: 20,
   },
-  // Estilos para o título "Bem-vindo ao Sleep Better"
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
   },
-  // Estilos para a descrição
   description: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
   },
-  // Estilos para o botão "Comece a Regular o Sono"
   getStartedButton: {
     backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 5,
   },
-  // Estilos para o texto do botão "Comece a Regular o Sono"
   getStartedButtonText: {
     textAlign: 'center',
     color: '#fff',
     fontWeight: 'bold',
   },
-  // Estilos para o botão "Definir Localização Manualmente"
   manualLocationButton: {
     marginTop: 10,
     backgroundColor: '#ff9900',
@@ -104,17 +105,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 5,
   },
-  // Estilos para o container do ícone e texto do botão "Definir Localização Manualmente"
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Estilos para o texto do botão "Definir Localização Manualmente"
   manualLocationButtonText: {
     textAlign: 'center',
     color: '#fff',
     fontWeight: 'bold',
     marginLeft: 10,
   },
+  logoutButton: {
+    marginTop: 10,
+    backgroundColor: 'red',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+  },
+  logoutButtonText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
+
+export default Home;

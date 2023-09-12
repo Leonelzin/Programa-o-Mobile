@@ -22,7 +22,10 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Seu logotipo aqui */}
+      {/* Inserção do nome do aplicativo "sleep better" */}
+      <Text style={styles.appName}>Sleep Better</Text>
+
+      {/* Insira o logotipo aqui */}
       <Image
         source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
         style={styles.logo}
@@ -68,6 +71,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+  },
+  // Estilos para o nome do aplicativo
+  appName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   // Estilos para o logotipo
   logo: {

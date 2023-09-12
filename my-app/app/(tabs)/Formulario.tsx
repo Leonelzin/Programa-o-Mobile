@@ -1,50 +1,40 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, Image, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Home() {
-  // Estados para armazenar as informações inseridas pelo usuário
+export default function Formulario() {
+  // Estados para armazenar os valores dos campos de entrada
   const [sleepTime, setSleepTime] = useState('');
   const [sleepDuration, setSleepDuration] = useState('');
   const [sleepNote, setSleepNote] = useState('');
 
-  // Função para lidar com o início da regulagem do sono
+  // Obtém a instância de navegação
+  const navigation = useNavigation();
+
+  // Função para lidar com o envio dos dados e navegação
   const handleStartSleepRegulation = () => {
-    // Implemente a lógica para iniciar a regulagem do sono aqui
-    // Isso pode incluir a navegação para a tela de regulação do sono
-  };
+    // Você pode implementar a lógica para enviar os dados para onde for necessário aqui
 
-  const Stack = createStackNavigator();
-
-  // Função para definir a localização manualmente
-  const handleSetLocationManually = () => {
-    Alert.prompt(
-      'Definir Localização Manualmente',
-      'Insira a latitude e a longitude separadas por vírgula (ex: 12.345, -67.890)',
-      (text) => {
-        const [lat, long] = text.split(',').map((coord) => parseFloat(coord.trim()));
-
-        if (!isNaN(lat) && !isNaN(long)) {
-          // Você pode fazer algo com a latitude e longitude inseridas aqui, se necessário
-        } else {
-          Alert.alert('Erro', 'Por favor, insira valores de latitude e longitude válidos.');
-        }
-      }
-    );
+    // Navega para a tela de feedback e passa os dados como parâmetros
+    navigation.navigate('Feedback', {
+      sleepTime,
+      sleepDuration,
+      sleepNote,
+    });
   };
 
   return (
     <View style={styles.container}>
-      {/* Sua logo aqui */}
+      {/* Renderiza uma logo */}
       <Image
-        source={require('./imagens/Anotações.png')} // Substitua pelo caminho da imagem da sua logo
+        source={require('./imagens/Anotações.png')}
         style={styles.logo}
       />
 
+      {/* Título da tela */}
       <Text style={styles.title}>Preencha as Informações</Text>
 
-      {/* Campo para inserir a hora de dormir */}
+      {/* Campo de entrada para "Que horas você dormiu?" */}
       <TextInput
         style={styles.input}
         placeholder="Que horas você dormiu?"
@@ -52,7 +42,7 @@ export default function Home() {
         onChangeText={(text) => setSleepTime(text)}
       />
 
-      {/* Campo para inserir a duração do sono */}
+      {/* Campo de entrada para "Quanto tempo você dormiu?" */}
       <TextInput
         style={styles.input}
         placeholder="Quanto tempo você dormiu?"
@@ -60,7 +50,7 @@ export default function Home() {
         onChangeText={(text) => setSleepDuration(text)}
       />
 
-      {/* Campo para inserir uma nota sobre o sono (opcional) */}
+      {/* Campo de entrada para "Alguma observação?" */}
       <TextInput
         style={styles.input}
         placeholder="Alguma observação?"
@@ -68,15 +58,19 @@ export default function Home() {
         onChangeText={(text) => setSleepNote(text)}
       />
 
-      <TouchableOpacity style={styles.getStartedButton} onPress={handleStartSleepRegulation}>
+      {/* Botão "Enviar" que chama a função handleStartSleepRegulation quando pressionado */}
+      <TouchableOpacity
+        style={styles.getStartedButton}
+        onPress={handleStartSleepRegulation}
+      >
         <Text style={styles.getStartedButtonText}>Enviar</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
+// Estilos CSS para os elementos da tela
 const styles = StyleSheet.create({
-  // Estilos para o container principal
   container: {
     flex: 1,
     alignItems: 'center',
@@ -84,20 +78,17 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
-  // Estilos para a logo
   logo: {
-    width: 200, // Ajuste a largura da logo conforme necessário
-    height: 200, // Ajuste a altura da logo conforme necessário
+    width: 200,
+    height: 200,
     marginBottom: 20,
   },
-  // Estilos para o título "Preencha as Informações"
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
   },
-  // Estilos para os campos de entrada de texto
   input: {
     width: '100%',
     padding: 10,
@@ -106,38 +97,15 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
   },
-  // Estilos para o botão "Enviar"
   getStartedButton: {
     backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 5,
   },
-  // Estilos para o texto do botão "Enviar"
   getStartedButtonText: {
     textAlign: 'center',
     color: '#fff',
     fontWeight: 'bold',
-  },
-  // Estilos para o botão "Definir Localização Manualmente"
-  manualLocationButton: {
-    marginTop: 10,
-    backgroundColor: '#ff9900',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 5,
-  },
-  // Estilos para o container do ícone e texto do botão "Definir Localização Manualmente"
-  iconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Estilos para o texto do botão "Definir Localização Manualmente"
-  manualLocationButtonText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontWeight: 'bold',
-    marginLeft: 10,
   },
 });

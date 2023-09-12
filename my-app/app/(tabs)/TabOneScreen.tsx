@@ -57,9 +57,17 @@ export default function TabOneScreen() {
     }
   };
 
+  // Função para navegar para a tela "Esqueci minha senha"
+  const navigateToForgotPassword = () => {
+    navigation.navigate('TabThreeScreen');
+  };
+
   return (
     <View style={styles.container}>
-      {/* Seu logotipo aqui */}
+      {/* Inserção do nome do aplicativo "sleep better" */}
+      <Text style={styles.appName}>Sleep Better</Text>
+
+      {/* Insira o logotipo aqui */}
       <Image
         source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
         style={styles.logo}
@@ -95,7 +103,7 @@ export default function TabOneScreen() {
           <Image source={{ uri: capturedImage }} style={styles.capturedImage} />
         </View>
       )}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={navigateToForgotPassword}>
         <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
       </TouchableOpacity>
       <View style={styles.signUpContainer}>
@@ -130,6 +138,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+  },
+  // Estilos para o nome do aplicativo
+  appName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   // Estilos para o logotipo
   logo: {

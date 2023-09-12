@@ -4,16 +4,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 
 export default function Home() {
+  // Estados para armazenar as informações inseridas pelo usuário
   const [sleepTime, setSleepTime] = useState('');
   const [sleepDuration, setSleepDuration] = useState('');
   const [sleepNote, setSleepNote] = useState('');
 
+  // Função para lidar com o início da regulagem do sono
   const handleStartSleepRegulation = () => {
     // Implemente a lógica para iniciar a regulagem do sono aqui
     // Isso pode incluir a navegação para a tela de regulação do sono
   };
 
   const Stack = createStackNavigator();
+
+  // Função para definir a localização manualmente
   const handleSetLocationManually = () => {
     Alert.prompt(
       'Definir Localização Manualmente',
@@ -34,7 +38,7 @@ export default function Home() {
     <View style={styles.container}>
       {/* Sua logo aqui */}
       <Image
-        source={require('./logonenem.png')} // Substitua pelo caminho da imagem da sua logo
+        source={require('./imagens/Anotações.png')} // Substitua pelo caminho da imagem da sua logo
         style={styles.logo}
       />
 
@@ -72,6 +76,7 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
+  // Estilos para o container principal
   container: {
     flex: 1,
     alignItems: 'center',
@@ -79,22 +84,20 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
+  // Estilos para a logo
   logo: {
     width: 200, // Ajuste a largura da logo conforme necessário
     height: 200, // Ajuste a altura da logo conforme necessário
     marginBottom: 20,
   },
+  // Estilos para o título "Preencha as Informações"
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
   },
-  description: {
-    fontSize: 16,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
+  // Estilos para os campos de entrada de texto
   input: {
     width: '100%',
     padding: 10,
@@ -103,17 +106,20 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
   },
+  // Estilos para o botão "Enviar"
   getStartedButton: {
     backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 5,
   },
+  // Estilos para o texto do botão "Enviar"
   getStartedButtonText: {
     textAlign: 'center',
     color: '#fff',
     fontWeight: 'bold',
   },
+  // Estilos para o botão "Definir Localização Manualmente"
   manualLocationButton: {
     marginTop: 10,
     backgroundColor: '#ff9900',
@@ -121,11 +127,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 5,
   },
+  // Estilos para o container do ícone e texto do botão "Definir Localização Manualmente"
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Estilos para o texto do botão "Definir Localização Manualmente"
   manualLocationButtonText: {
     textAlign: 'center',
     color: '#fff',

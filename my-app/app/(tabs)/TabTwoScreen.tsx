@@ -8,6 +8,7 @@ export default function TabTwoScreen() {
   const [email, setEmail] = useState('');
   const navigation = useNavigation();
 
+  // Função para lidar com o cadastro
   const handleSignup = () => {
     // Implemente a lógica de cadastro aqui
     // Você pode enviar os dados de cadastro (nome de usuário, senha, email) para um servidor ou armazená-los localmente
@@ -23,7 +24,7 @@ export default function TabTwoScreen() {
     <View style={styles.container}>
       {/* Seu logotipo aqui */}
       <Image
-        source={require('./meulogo.png')} // Substitua pelo caminho da imagem do seu logotipo
+        source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
         style={styles.logo}
       />
 
@@ -61,22 +62,26 @@ export default function TabTwoScreen() {
 }
 
 const styles = StyleSheet.create({
+  // Estilos para o container principal
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
+  // Estilos para o logotipo
   logo: {
     width: 100, // Ajuste a largura do logotipo conforme necessário
     height: 100, // Ajuste a altura do logotipo conforme necessário
     marginBottom: 20,
   },
+  // Estilos para o título "Cadastro"
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  // Estilos para os campos de entrada de texto
   input: {
     width: '80%',
     height: 40,
@@ -86,25 +91,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
+  // Estilos para o botão de cadastro
   signupButton: {
     backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 5,
   },
+  // Estilos para o texto do botão de cadastro
   signupButtonText: {
     textAlign: 'center',
     color: '#fff',
     fontWeight: 'bold',
   },
+  // Estilos para o container do link "Já tem uma conta?"
   signinContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
   },
+  // Estilos para o texto "Já tem uma conta?"
   signinText: {
     color: '#333',
   },
+  // Estilos para o link "Faça login agora"
   signinLink: {
     color: '#007bff',
     marginLeft: 5,

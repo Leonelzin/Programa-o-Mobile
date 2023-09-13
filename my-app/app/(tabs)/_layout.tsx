@@ -23,9 +23,9 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
-        name="Login"
+        name= "TabOneScreen"
         options={{
-          title: 'Login',
+          title: 'TabOneScreen',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -44,17 +44,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-              name="TabOneScreen"
-              options={{
-                title: 'TabOneScreen',
-                tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-              }}
-            />
-      <Tabs.Screen
         name="TabTwoScreen"
         options={{
           title: 'TabTwoScreen',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+          name="TabThreeScreen"
+          options={{
+            title: 'TabThreeScreen',
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
        <Tabs.Screen

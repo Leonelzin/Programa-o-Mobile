@@ -34,4 +34,3 @@ function App() {
     </NavigationContainer>
   );
 }
-

@@ -67,7 +67,7 @@ export default function TabOneScreen() {
       {/* Inserção do nome do aplicativo "sleep better" */}
       <Text style={styles.appName}>Sleep Better</Text>
 
-      {/* Insira o logotipo aqui */}
+      {/* Renderiza uma logo */}
       <Image
         source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
         style={styles.logo}

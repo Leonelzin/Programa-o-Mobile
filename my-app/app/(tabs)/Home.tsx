@@ -8,7 +8,7 @@ const Home: React.FC = () => {
 
   // Função para lidar com o início da regulagem do sono
   const handleStartSleepRegulation = () => {
-    navigation.navigate('Formulario');
+    navigation.navigate('Formulario'); // Redireciona para a tela 'Formulario'
   };
 
   // Função para definir a localização manualmente
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
         const [lat, long] = text.split(',').map((coord) => parseFloat(coord.trim()));
 
         if (!isNaN(lat) && !isNaN(long)) {
-          // Você pode fazer algo com a latitude e longitude inseridas aqui, se necessário
+          // Inserção com a latitude e longitude inseridas
         } else {
           Alert.alert('Erro', 'Por favor, insira valores de latitude e longitude válidos.');
         }
@@ -31,11 +31,12 @@ const Home: React.FC = () => {
   // Função para lidar com o logout
   const handleLogout = () => {
     // Redirecionar para a tela de login da mesma forma que a tela de cadastro
-    navigation.navigate('TabOneScreen'); // 'TabOneScreen' é o nome da tela de login
+    navigation.navigate('TabOneScreen'); // Redireciona para a tela 'TabOneScreen' (tela de login)
   };
 
   return (
     <View style={styles.container}>
+    {/* Renderiza uma logo */}
       <Image
         source={require('./imagens/logonenem.png')}
         style={styles.logo}

@@ -12,12 +12,15 @@ export default function TabTwoScreen() {
   const handleSignup = () => {
     // Implemente a lógica de cadastro aqui
     // Você pode enviar os dados de cadastro (nome de usuário, senha, email) para um servidor ou armazená-los localmente
-    navigation.navigate('Home'); // Navega para a tela Home após o cadastro bem-sucedido
+
+    // Navega para a tela Home após o cadastro bem-sucedido
+    navigation.navigate('Home');
   };
 
   // Função para navegar para a tela de login
   const navigateToLogin = () => {
-    navigation.navigate('TabOneScreen'); // 'TabOneScreen' é o nome da tela de login
+    // Navega para a tela de login ('TabOneScreen' é o nome da tela de login)
+    navigation.navigate('TabOneScreen');
   };
 
   return (
@@ -25,7 +28,7 @@ export default function TabTwoScreen() {
       {/* Inserção do nome do aplicativo "sleep better" */}
       <Text style={styles.appName}>Sleep Better</Text>
 
-      {/* Insira o logotipo aqui */}
+      {/* Renderiza uma logo */}
       <Image
         source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
         style={styles.logo}

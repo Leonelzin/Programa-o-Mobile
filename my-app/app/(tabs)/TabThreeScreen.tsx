@@ -9,7 +9,7 @@ export default function ForgotPasswordScreen() {
   // Função para lidar com o envio do e-mail de redefinição de senha
   const handleSendResetEmail = () => {
     // Implemente a lógica para enviar o e-mail de redefinição de senha aqui.
-    // Isso pode envolver uma chamada à API do seu servidor.
+    // Isso pode envolver uma chamada à API do servidor.
 
     // Após enviar o e-mail, redirecione o usuário de volta para a tela de login.
     navigation.navigate('TabOneScreen'); // 'TabOneScreen' é o nome da tela de login
@@ -17,7 +17,7 @@ export default function ForgotPasswordScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Insira o logotipo aqui */}
+      {/* Renderiza uma logo */}
       <Image
         source={require('./imagens/Logo.jpg')}
         style={styles.logo}
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 100, // Ajuste a largura do logo conforme necessário
-    height: 100, // Ajuste a altura do logo conforme necessário
+    width: 100, // Ajuste a largura do logotipo conforme necessário
+    height: 100, // Ajuste a altura do logotipo conforme necessário
     marginBottom: 20,
   },
   title: {

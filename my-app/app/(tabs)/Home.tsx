@@ -1,14 +1,32 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location'; // Importe o módulo de localização
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
+  const [location, setLocation] = useState<string | null>(null);
+
+  // Verifica e solicita permissão para acessar a localização
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão de Localização', 'Desculpe, precisamos de permissão para acessar a localização.');
+      }
+    })();
+  }, []);
+
+  // Função para obter e exibir a localização atual
+  const getLocation = async () => {
+    const { coords } = await Location.getCurrentPositionAsync({});
+    setLocation(`${coords.latitude}, ${coords.longitude}`);
+  };
 
   // Função para lidar com o início da regulagem do sono
   const handleStartSleepRegulation = () => {
-    navigation.navigate('Formulario'); // Redireciona para a tela 'Formulario'
+    navigation.navigate('Formulario');
   };
 
   // Função para definir a localização manualmente
@@ -20,7 +38,7 @@ const Home: React.FC = () => {
         const [lat, long] = text.split(',').map((coord) => parseFloat(coord.trim()));
 
         if (!isNaN(lat) && !isNaN(long)) {
-          // Inserção com a latitude e longitude inseridas
+          setLocation(`${lat}, ${long}`);
         } else {
           Alert.alert('Erro', 'Por favor, insira valores de latitude e longitude válidos.');
         }
@@ -30,33 +48,32 @@ const Home: React.FC = () => {
 
   // Função para lidar com o logout
   const handleLogout = () => {
-    // Redirecionar para a tela de login da mesma forma que a tela de cadastro
-    navigation.navigate('TabOneScreen'); // Redireciona para a tela 'TabOneScreen' (tela de login)
+    navigation.navigate('TabOneScreen');
   };
 
   return (
     <View style={styles.container}>
-    {/* Renderiza uma logo */}
       <Image
         source={require('./imagens/logonenem.png')}
         style={styles.logo}
       />
-
       <Text style={styles.title}>Bem-vindo ao Sleep Better</Text>
       <Text style={styles.description}>
         O Sleep Better é seu parceiro para uma noite de sono mais saudável e revigorante.
         Monitore seu sono, crie rotinas saudáveis e experimente a diferença em sua vida.
       </Text>
+      {location && (
+        <Text style={styles.locationText}>Localização Atual: {location}</Text>
+      )}
       <TouchableOpacity style={styles.getStartedButton} onPress={handleStartSleepRegulation}>
         <Text style={styles.getStartedButtonText}>Comece a Regular o Sono</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.manualLocationButton} onPress={handleSetLocationManually}>
+      <TouchableOpacity style={styles.manualLocationButton} onPress={getLocation}>
         <View style={styles.iconContainer}>
           <Icon name="map-pin" size={20} color="#fff" />
           <Text style={styles.manualLocationButtonText}>Definir Localização</Text>
         </View>
       </TouchableOpacity>
-
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
@@ -84,6 +101,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   description: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  locationText: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',

@@ -1,45 +1,77 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons';
 
-export default function TabTwoScreen() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+function CadastroScreen() {
   const navigation = useNavigation();
+  const [nomeUsuario, setNomeUsuario] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
+  const [foto, setFoto] = useState<string | null>(null);
 
-  // Função para lidar com o cadastro
-  const handleSignup = () => {
-    // Implemente a lógica de cadastro aqui
-    // Você pode enviar os dados de cadastro (nome de usuário, senha, email) para um servidor ou armazená-los localmente
+  useEffect(() => {
+    // Solicitar permissão para acessar a câmera e a galeria de fotos
+    (async () => {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Desculpe, precisamos de permissão para acessar a câmera e a galeria de fotos.');
+      }
+    })();
+  }, []);
 
-    // Navega para a tela Home após o cadastro bem-sucedido
-    navigation.navigate('Home');
-  };
-
-  // Função para navegar para a tela de login
+    // Função para navegar para a tela de login
   const navigateToLogin = () => {
     // Navega para a tela de login ('TabOneScreen' é o nome da tela de login)
     navigation.navigate('TabOneScreen');
   };
 
+  const handleCadastro = () => {
+    // Implemente a lógica de cadastro aqui.
+    // Após o cadastro, navegue para a tela apropriada.
+    navigation.navigate('Home'); // Alterado para 'Home' como exemplo
+  };
+
+  const handleEscolherFoto = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setFoto(result.uri);
+    }
+  };
+
+  const handleTirarFoto = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setFoto(result.uri);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* Inserção do nome do aplicativo "sleep better" */}
       <Text style={styles.appName}>Sleep Better</Text>
-
-      {/* Renderiza uma logo */}
       <Image
         source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
         style={styles.logo}
       />
-
       <Text style={styles.title}>Cadastro</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome de usuário"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
+        value={nomeUsuario}
+        onChangeText={(text) => setNomeUsuario(text)}
       />
       <TextInput
         style={styles.input}
@@ -51,16 +83,28 @@ export default function TabTwoScreen() {
         style={styles.input}
         placeholder="Senha"
         secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+        value={senha}
+        onChangeText={(text) => setSenha(text)}
       />
-      <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
-        <Text style={styles.signupButtonText}>Cadastrar</Text>
+      <Text style={styles.subtitle}>Escolha uma foto de perfil:</Text>
+      {foto && <Image source={{ uri: foto }} style={styles.foto} />}
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity onPress={handleEscolherFoto} style={styles.button}>
+          <MaterialIcons name="image" size={24} color="#ffffff" />
+          <Text style={styles.buttonText}>Escolher Foto</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleTirarFoto} style={styles.button}>
+          <MaterialIcons name="camera-alt" size={24} color="#ffffff" />
+          <Text style={styles.buttonText}>Tirar Foto</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity onPress={handleCadastro} style={styles.cadastroButton}>
+        <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
-      <View style={styles.signinContainer}>
-        <Text style={styles.signinText}>Já tem uma conta?</Text>
+      <View style={styles.loginContainer}>
+        <Text style={styles.loginText}>Já tem uma conta?</Text>
         <TouchableOpacity onPress={navigateToLogin}>
-          <Text style={styles.signinLink}>Faça login agora</Text>
+          <Text style={styles.loginLink}>Faça login agora</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -68,32 +112,29 @@ export default function TabTwoScreen() {
 }
 
 const styles = StyleSheet.create({
-  // Estilos para o container principal
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
-  // Estilos para o nome do aplicativo
   appName: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily: 'sans-serif', // Defina a fonte desejada aqui
   },
-  // Estilos para o logotipo
   logo: {
-    width: 100, // Ajuste a largura do logotipo conforme necessário
-    height: 100, // Ajuste a altura do logotipo conforme necessário
+    width: 100,
+    height: 100,
     marginBottom: 20,
   },
-  // Estilos para o título "Cadastro"
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily: 'sans-serif', // Defina a fonte desejada aqui
   },
-  // Estilos para os campos de entrada de texto
   input: {
     width: '80%',
     height: 40,
@@ -103,33 +144,58 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
-  // Estilos para o botão de cadastro
-  signupButton: {
+  cadastroButton: {
     backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 5,
+    marginTop: 10,
   },
-  // Estilos para o texto do botão de cadastro
-  signupButtonText: {
+  buttonText: {
     textAlign: 'center',
     color: '#fff',
     fontWeight: 'bold',
   },
-  // Estilos para o container do link "Já tem uma conta?"
-  signinContainer: {
+  loginContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
   },
-  // Estilos para o texto "Já tem uma conta?"
-  signinText: {
+  loginText: {
     color: '#333',
   },
-  // Estilos para o link "Faça login agora"
-  signinLink: {
+  loginLink: {
     color: '#007bff',
     marginLeft: 5,
     fontWeight: 'bold',
   },
+  subtitle: {
+    marginTop: 20,
+    fontSize: 18,
+    color: '#333',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+    marginTop: 10,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+    width: '48%',
+    justifyContent: 'center',
+  },
+  foto: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
+    borderRadius: 100,
+    marginTop: 10,
+  },
 });
+
+export default CadastroScreen;

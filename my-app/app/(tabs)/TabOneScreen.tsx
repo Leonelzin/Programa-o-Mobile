@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomeScreen from './Home';
 import { RNCamera } from 'react-native-camera';
 
-export default function TabOneScreen() {
+const TabOneScreen: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isCameraActive, setIsCameraActive] = useState(false);
@@ -89,14 +89,6 @@ export default function TabOneScreen() {
       />
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={openCamera} style={styles.socialLoginContainer}>
-        <View style={styles.socialButton}>
-          <Icon name="camera" size={24} color="#007bff" style={styles.socialIcon} />
-          <Text style={styles.socialLoginText}>
-            {isCameraActive ? 'Tire uma foto para autenticar' : 'Login com a Face'}
-          </Text>
-        </View>
       </TouchableOpacity>
       {capturedImage && (
         <View>
@@ -180,28 +172,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
-  // Estilos para o container dos botões de login social
-  socialLoginContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  // Estilos para o botão de login social
-  socialButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    borderRadius: 5,
-  },
-  // Estilos para o ícone do botão de login social
-  socialIcon: {
-    marginRight: 10,
-  },
-  // Estilos para o texto do botão de login social
-  socialLoginText: {
-    color: '#333',
-    fontWeight: 'bold',
-  },
   // Estilos para o link "Esqueceu a senha?"
   forgotPassword: {
     marginTop: 10,
@@ -250,3 +220,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default TabOneScreen;

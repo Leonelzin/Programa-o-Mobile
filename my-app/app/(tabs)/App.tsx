@@ -7,6 +7,7 @@ import TabThreeScreen from './TabThreeScreen'; // Importa a Tela de Esqueci a Se
 import HomeScreen from './Home'; // Importa a Tela de Home
 import FormularioScreen from './Formulario'; // Importa a Tela de Formulário
 import FeedbackScreen from './Feedback'; // Importa a Tela de Feedback
+import modalScreen from './modal'; // Importa a Tela de modal
 
 // Cria uma instância do Stack Navigator
 const Stack = createStackNavigator();

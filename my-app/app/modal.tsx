@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 20,
+    fontWeight: 'bold',
+    textAlign: 'center', // Centralizar o texto horizontalmente
   },
   text: {
     fontSize: 16,
@@ -46,8 +47,8 @@ const styles = StyleSheet.create({
   },
   featuresTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
     marginBottom: 10,
+    fontWeight: 'bold',
   },
   featureItem: {
     flexDirection: 'row',

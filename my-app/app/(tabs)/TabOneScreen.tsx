@@ -50,7 +50,7 @@ const TabOneScreen: React.FC = () => {
         const data = await cameraRef.current.takePictureAsync(options);
         setCapturedImage(data.uri);
         closeCamera();
-        // Implemente a lógica para autenticar o usuário com a foto capturada aqui.
+        // Implemente a lógica de autenticação do usuário com a foto capturada aqui.
       } catch (error) {
         console.error('Erro ao tirar foto:', error);
       }
@@ -64,12 +64,12 @@ const TabOneScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      {/* Inserção do nome do aplicativo "sleep better" */}
+      {/* Inserção do nome do aplicativo "Sleep Better" */}
       <Text style={styles.appName}>Sleep Better</Text>
 
       {/* Renderiza uma logo */}
       <Image
-        source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
+        source={require('./imagens/Logo.jpg')}
         style={styles.logo}
       />
 

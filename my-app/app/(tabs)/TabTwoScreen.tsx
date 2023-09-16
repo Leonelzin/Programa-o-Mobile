@@ -62,8 +62,9 @@ function CadastroScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.appName}>Sleep Better</Text>
+      {/* Renderiza uma logo */}
       <Image
-        source={require('./imagens/Logo.jpg')} // Substitua pelo caminho da imagem do seu logotipo
+        source={require('./imagens/Logo.jpg')}
         style={styles.logo}
       />
       <Text style={styles.title}>Cadastro</Text>
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    fontFamily: 'sans-serif', // Defina a fonte desejada aqui
+    fontFamily: 'sans-serif', // Defina a fonte
   },
   logo: {
     width: 100,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    fontFamily: 'sans-serif', // Defina a fonte desejada aqui
+    fontFamily: 'sans-serif', // Defina a fonte
   },
   input: {
     width: '80%',

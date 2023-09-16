@@ -13,7 +13,7 @@ export default function Formulario() {
 
   // Função para lidar com o envio dos dados e navegação
   const handleStartSleepRegulation = () => {
-    // Você pode implementar a lógica para enviar os dados para onde for necessário aqui
+    // Implementação da lógica para enviar os dados para onde for necessário aqui
 
     // Navega para a tela de feedback e passa os dados como parâmetros
     navigation.navigate('Feedback', {

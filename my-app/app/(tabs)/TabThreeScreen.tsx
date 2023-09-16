@@ -9,7 +9,7 @@ export default function ForgotPasswordScreen() {
   // Função para lidar com o envio do e-mail de redefinição de senha
   const handleSendResetEmail = () => {
     // Implemente a lógica para enviar o e-mail de redefinição de senha aqui.
-    // Isso pode envolver uma chamada à API do servidor.
+    // Isso pode envolver uma chamada à API do servidor (anotação).
 
     // Após enviar o e-mail, redirecione o usuário de volta para a tela de login.
     navigation.navigate('TabOneScreen'); // 'TabOneScreen' é o nome da tela de login
